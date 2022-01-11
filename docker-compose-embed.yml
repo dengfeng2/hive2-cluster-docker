@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+    hadoop-01:
+        image: hadoop-hive2:latest
+        volumes:
+          - ./etc-hadoop:/etc-hadoop
+          - ./conf-hive:/conf-hive
+        networks:
+          - hadoop-net
+        hostname: hadoop-01
+        tty: true
+        ports:
+          - "50070:50070"
+          - "19888:19888"
+    hadoop-02:
+        image: hadoop-hive2:latest
+        volumes:
+          - ./etc-hadoop:/etc-hadoop
+          - ./conf-hive:/conf-hive
+        networks:
+          - hadoop-net
+        hostname: hadoop-02
+        tty: true
+        ports:
+          - "50090:50090"
+    hadoop-03:
+        image: hadoop-hive2:latest
+        volumes:
+          - ./etc-hadoop:/etc-hadoop
+          - ./conf-hive:/conf-hive
+        networks:
+          - hadoop-net
+        hostname: hadoop-03
+        tty: true
+        ports:
+          - "8088:8088"
+
+networks:
+    hadoop-net:
+        driver: bridge
