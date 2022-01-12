@@ -48,7 +48,7 @@
 HADOOP_HOME=/hadoop
 
 # Hive Configuration Directory can be controlled by:
-# export HIVE_CONF_DIR=
+export HIVE_CONF_DIR=/conf-hive
 
 # Folder containing extra libraries required for hive compilation/execution can be controlled by:
 # export HIVE_AUX_JARS_PATH=

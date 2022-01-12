@@ -27,10 +27,13 @@ RUN ln -s /${HADOOP_PACKAGE} /hadoop && mkdir /etc-hadoop
 ARG HIVE_PACKAGE
 ADD ${HIVE_PACKAGE}.tar.gz /
 RUN ln -s /${HIVE_PACKAGE} /hive && mkdir /conf-hive
+COPY mysql-connector-java-8.0.27.jar /${HIVE_PACKAGE}/lib/
 
 ENV HADOOP_HOME=/hadoop
+ENV HADOOP_CONF_DIR=/etc-hadoop
 ENV HIVE_HOME=/hive
+ENV HIVE_CONF_DIR=/conf-hive
 ENV PATH=$PATH:${HADOOP_HOME}/bin:${HIVE_HOME}/bin
 
 
-CMD ["sh", "-c", "/usr/sbin/sshd; cp -r /etc-hadoop/* /hadoop/etc/hadoop/; cp -r /conf-hive/* /hive/conf/; bash"]
+CMD ["sh", "-c", "/usr/sbin/sshd; bash"]

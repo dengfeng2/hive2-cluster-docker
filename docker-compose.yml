@@ -1,9 +1,10 @@
 version: "3.9"
 services:
     hadoop-01:
-        image: hadoop2:latest
+        image: hadoop-hive2:latest
         volumes:
           - ./etc-hadoop:/etc-hadoop
+          - ./conf-hive:/conf-hive
         networks:
           - hadoop-net
         hostname: hadoop-01
@@ -12,9 +13,10 @@ services:
           - "50070:50070"
           - "19888:19888"
     hadoop-02:
-        image: hadoop2:latest
+        image: hadoop-hive2:latest
         volumes:
           - ./etc-hadoop:/etc-hadoop
+          - ./conf-hive:/conf-hive
         networks:
           - hadoop-net
         hostname: hadoop-02
@@ -22,31 +24,27 @@ services:
         ports:
           - "50090:50090"
     hadoop-03:
-        image: hadoop2:latest
+        image: hadoop-hive2:latest
         volumes:
           - ./etc-hadoop:/etc-hadoop
+          - ./conf-hive:/conf-hive
         networks:
           - hadoop-net
         hostname: hadoop-03
         tty: true
         ports:
           - "8088:8088"
-    hadoop-04:
-        image: hadoop2:latest
-        volumes:
-          - ./etc-hadoop:/etc-hadoop
+    mysql:
+        image: mysql:8.0.27
         networks:
           - hadoop-net
-        hostname: hadoop-04
-        tty: true
-    hadoop-05:
-        image: hadoop2:latest
-        volumes:
-          - ./etc-hadoop:/etc-hadoop
-        networks:
-          - hadoop-net
-        hostname: hadoop-05
-        tty: true
+        hostname: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: my-secret-pw
+            MYSQL_DATABASE: app
+            MYSQL_USER: APP
+            MYSQL_PASSWORD: mine
 
 networks:
     hadoop-net:
